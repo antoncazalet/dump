@@ -6,11 +6,6 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 1>&2
    exit 1
 fi
-cat /etc/fedora-release | grep "Fedora release 30"
-if [[ $? -ne 0 ]]; then
-    echo "This script must be run onto a Fedora 30";
-    exit 1
-fi
 echo "Press ENTER to continue..."
 read
 
@@ -150,7 +145,7 @@ packages_list=(boost-devel.x86_64
                lightspark-mozilla-plugin
                mariadb-server)
 
-dnf -y install ${packages_list[@]}
+dnf --skip-broken -y install ${packages_list[@]}
 
 # BLIH
 cp blih.py /usr/bin/blih
